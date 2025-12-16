@@ -1,0 +1,85 @@
+services:
+  web:
+    container_name: wp_nginx
+    image: nginx:1.29.4-alpine
+    ports:
+      - 8080:80
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./nginx:/etc/nginx/conf.d:rw
+      - wordpress:/var/www/html
+    networks:
+      - wordpress-network
+  
+  database:
+    container_name: wp_database
+    image: mariadb:latest
+    restart: unless-stopped
+    ports:
+      - 3306:3306
+    env_file: .env
+    environment:
+      MARIADB_ROOT_PASSWORD: '${MARIA_ROOT_PASSWORD}'
+      MARIADB_DATABASE: '${MARIA_DATABASE}'
+      MARIADB_USER: '${MARIA_USER}'
+      MARIADB_PASSWORD: '${MARIA_PASSWORD}'
+    volumes:
+      - wordpress:/var/lib/mariadb
+    networks:
+      - wordpress-network
+
+
+  phpmyadmin:
+    container_name: wp_php
+    depends_on:
+        - database
+    image: phpmyadmin/phpmyadmin
+    restart: unless-stopped
+    ports:
+      - 8081:80
+    env_file: .env
+    environment:
+      PMA_HOST: database
+      PMA_PORT: 3306
+      MARIA_ROOT_PASSWORD: '${MARIA_ROOT_PASSWORD}'
+    networks:
+      - wordpress-network
+
+  wordpress:
+    depends_on:
+      - database
+    image: wordpress:6.9.0-fpm-alpine
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      WORDPRESS_DB_HOST: database:3306
+      WORDPRESS_DB_NAME: '${MARIA_DATABASE}'
+      WORDPRESS_DB_USER: '${MARIA_USER}'
+      WORDPRESS_DB_PASSWORD: '${MARIA_PASSWORD}'
+    volumes:
+      - wordpress:/var/www/html
+    networks:
+      - wordpress-network
+
+
+networks:
+  wordpress-network:
+    driver: bridge
+
+volumes:
+  wordpress:
+
+      
+
+
+
+  
+
+
+
+
+
+
+
