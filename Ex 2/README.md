@@ -1,7 +1,7 @@
 Bonjour,
 Vous trouverez ci-dessous mon process pour la résolution de l'exercice 2. Je vous conseille cependant de le regarder sur le PDF car j'ai pu y inclure des captuers d'écrans.
 
-#Process détaillé :#
+Process détaillé :
 
 On suppose que sur le windows server, la machine a été renommée, la configuration réseau et la définition du serveur DNS ont déjà été faite.
 
