@@ -1,7 +1,8 @@
 Bonjour,
 Vous trouverez ci-dessous mon process pour la résolution de l'exercice 1. Je vous conseille cependant de le regarder sur le PDF car j'ai pu y inclure des captuers d'écrans.
 
-*Process détaillé :* 
+**Process détaillé :** 
+
 Chaque bureau sera composé de : 
 - 1 switch
 - 1 point d’accès Wi-Fi
